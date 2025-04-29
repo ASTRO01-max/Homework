@@ -51,7 +51,7 @@ async def send_help_message(message: types.Message, state_name: str):
             "Harf yoki belgi kiritman.\n"
             "Misol: 16"
         ),
-        "qayerliki": (
+        "turar_joyi": (
             "Turar joy kirit:\n"
             "- Yashash joy.\n"
             "- Shahar, tuman yoki viloyat yozing.\n"
@@ -99,7 +99,7 @@ async def help_yosh(message: types.Message):
 @dp.message(StateFilter(UserForm.qayerliki), Command("help"))
 @dp.message(StateFilter(UserForm.qayerliki), lambda message: message.text.lower() == "help")
 async def help_qayerliki(message: types.Message):
-    await send_help_message(message, "qayerliki")
+    await send_help_message(message, "turar_joyi")
 
 @dp.message(StateFilter(UserForm.ish_joyi), Command("help"))
 @dp.message(StateFilter(UserForm.ish_joyi), lambda message: message.text.lower() == "help")
@@ -137,7 +137,7 @@ async def process_tel(message: types.Message, state: FSMContext):
         await send_help_message(message, "tel_nomer")
         return
     await state.update_data(tel_nomer=message.text)
-    await message.answer("Yoshingizni kiriting (1-100):")
+    await message.answer("📅 Yoshingizni kiriting (1-100):")
     await state.set_state(UserForm.yosh)
 
 @dp.message(StateFilter(UserForm.yosh))
@@ -146,13 +146,13 @@ async def process_yosh(message: types.Message, state: FSMContext):
         await send_help_message(message, "yosh")
         return
     await state.update_data(yosh=message.text)
-    await message.answer("🏠 Turar joy kiritilsin:")
+    await message.answer("📍 Turar joy kiritilsin:")
     await state.set_state(UserForm.qayerliki)
 
 @dp.message(StateFilter(UserForm.qayerliki))
 async def process_qayerliki(message: types.Message, state: FSMContext):
     if not is_valid_qayerliki(message.text):
-        await send_help_message(message, "qayerliki")
+        await send_help_message(message, "turar joyi")
         return
     await state.update_data(qayerliki=message.text.strip())
     await message.answer("💼 Ish joyingiz, kasbingiz kiritilsin:")
@@ -173,7 +173,7 @@ async def process_ish_joyi(message: types.Message, state: FSMContext):
         f"👤 Ism: {data['ism']}\n"
         f"📞 Telefon: {data['tel_nomer']}\n"
         f"📅 Yosh: {data['yosh']}\n"
-        f"🏠 Turar joy: {data['qayerliki']}\n"
+        f"📍 Turar joy: {data['qayerliki']}\n"
         f"💼 Ish joyi: {data['ish_joyi']}\n\n"
         "🔄 Qayta ro'yxatdan o'tish uchun /start ni bosing."
     )
