@@ -172,7 +172,7 @@ async def process_ish_joyi(message: types.Message, state: FSMContext):
         "✅ Ma'lumotlaringiz saqlandi!\n"
         f"👤 Ism: {data['ism']}\n"
         f"📞 Telefon: {data['tel_nomer']}\n"
-        f"🎂 Yosh: {data['yosh']}\n"
+        f"📅 Yosh: {data['yosh']}\n"
         f"🏠 Turar joy: {data['qayerliki']}\n"
         f"💼 Ish joyi: {data['ish_joyi']}\n\n"
         "🔄 Qayta ro'yxatdan o'tish uchun /start ni bosing."
